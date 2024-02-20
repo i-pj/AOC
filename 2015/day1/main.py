@@ -21,7 +21,6 @@ def part2():
                     floor -= 1
                 if floor == -1:
                     print(i+1)
-                    break
-                
+                    break  
 part1()
 part2()
