@@ -1,7 +1,6 @@
 # Travelling Salesman Problem 
 # https://en.wikipedia.org/wiki/Travelling_salesman_problem
 import itertools
-import math
 import re
 
 def distance(loc1, loc2, distances):
@@ -10,15 +9,25 @@ def distance(loc1, loc2, distances):
 def total_distance(route, distances):
     return sum(distance(route[i], route[i+1], distances) for i in range(len(route)-1))
 
-def solve_tsp(locations, distances):
-    shortest_distance = float('inf')
-    shortest_route = None
-    for route in itertools.permutations(locations):
-        route_distance = total_distance(route, distances)
-        if route_distance < shortest_distance:
-            shortest_distance = route_distance
-            shortest_route = route
-    return shortest_distance, shortest_route
+def solve_tsp(locations, distances, shortest=True):
+    if shortest:
+        shortest_distance = float('inf')
+        shortest_route = None
+        for route in itertools.permutations(locations):
+            route_distance = total_distance(route, distances)
+            if route_distance < shortest_distance:
+                shortest_distance = route_distance
+                shortest_route = route
+        return shortest_distance, shortest_route
+    else:
+        longest_distance = 0
+        longest_route = None
+        for route in itertools.permutations(locations):
+            route_distance = total_distance(route, distances)
+            if route_distance > longest_distance:
+                longest_distance = route_distance
+                longest_route = route
+        return longest_distance, longest_route
 
 def read_input(filename):
     locations = set()
@@ -35,6 +44,11 @@ def read_input(filename):
     return list(locations), distances
 
 locations, distances = read_input('input.txt')
-shortest_distance, shortest_route = solve_tsp(locations, distances)
+
+shortest_distance, shortest_route = solve_tsp(locations, distances, shortest=True)
 print("Shortest distance: " + str(shortest_distance))
 print("Shortest route: " + " -> ".join(shortest_route))
+
+longest_distance, longest_route = solve_tsp(locations, distances, shortest=False)
+print("Longest distance: " + str(longest_distance))
+print("Longest route: " + " -> ".join(longest_route))
