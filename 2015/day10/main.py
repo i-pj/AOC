@@ -11,7 +11,7 @@ def look_and_say(seq):
     return ''.join(result)
 
 seq = '1113122113'
-for _ in range(40):
+for _ in range(50): # I just changed it to 50 but there might be a better way to do this
     seq = look_and_say(seq)
 
 print(len(seq))
