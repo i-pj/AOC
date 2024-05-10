@@ -33,3 +33,10 @@ def next_password(password):
             return password
 
 print(next_password('hepxcrrq'))
+
+
+# Part 2
+# Next password
+part1_output = next_password('hepxcrrq')
+print(next_password(part1_output))
+
