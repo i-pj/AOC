@@ -35,7 +35,23 @@ def find_optimal_arrangement(guests):
             optimal_arrangement = arrangement
     return optimal_happiness, optimal_arrangement
 
+def add_myself(guests):
+    myself = 'Myself'
+    for guest in guests:
+        guests[guest][myself] = 0
+    guests[myself] = {}
+    for guest in guests:
+        guests[myself][guest] = 0
+    return guests
+
 guests = read_input('input.txt')
+print('Part 1:')
+optimal_happiness, optimal_arrangement = find_optimal_arrangement(guests)
+print('Optimal happiness:', optimal_happiness)
+print('Optimal arrangement:', optimal_arrangement)
+
+print('\nPart 2:')
+guests = add_myself(guests)
 optimal_happiness, optimal_arrangement = find_optimal_arrangement(guests)
 print('Optimal happiness:', optimal_happiness)
 print('Optimal arrangement:', optimal_arrangement)
