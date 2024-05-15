@@ -17,7 +17,7 @@ for i, line in enumerate(aunts):
 gift = {
     'children': 3,
     'cats': 7,
-   'samoyeds': 2,
+  'samoyeds': 2,
     'pomeranians': 3,
     'akitas': 0,
     'vizslas': 0,
@@ -27,7 +27,7 @@ gift = {
     'perfumes': 1
 }
 
-# Find the matching aunt
+# Part 1: Exact match
 for aunt, info in aunts_info.items():
     match = True
     for key, value in gift.items():
@@ -35,5 +35,25 @@ for aunt, info in aunts_info.items():
             match = False
             break
     if match:
-        print(aunt)
+        print("Part 1:", aunt)
+        break
+
+# Part 2: Ranges
+for aunt, info in aunts_info.items():
+    match = True
+    for key, value in gift.items():
+        if key == 'cats' or key == 'trees':
+            if key in info and info[key] <= value:
+                match = False
+                break
+        elif key == 'pomeranians' or key == 'goldfish':
+            if key in info and info[key] >= value:
+                match = False
+                break
+        else:
+            if key in info and info[key]!= value:
+                match = False
+                break
+    if match:
+        print("Part 2:", aunt)
         break
