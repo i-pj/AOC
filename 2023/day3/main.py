@@ -29,3 +29,9 @@ for i, l in enumerate(ls):
             parts_by_symbol[symbol][1].append(n)
 
 print(part_sum)
+
+print(
+    sum(
+        map(math.prod, [parts for symbol, parts in parts_by_symbol.values() if len(parts) == 2 and symbol == "*"])
+    )
+)
