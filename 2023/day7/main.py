@@ -1,6 +1,6 @@
 from collections import Counter
 
-with open("input") as f:
+with open("input.txt") as f:
     data = f.read().strip()
 
 
@@ -38,3 +38,5 @@ def solve(data):
     )
 
 print(solve(data))
+
+print(solve(data.replace("J", "*")))
