@@ -1,4 +1,5 @@
 import re
+import math
 
 with open('input.txt', 'r') as f:
     maps = [line.strip() for line in f.readlines()]
@@ -23,3 +24,31 @@ for instruction in instructions:
         break
 
 print(steps)
+
+instrs = maps[0].split()[0]
+nodes = {}
+
+current = []
+
+for node in maps[1:]:
+    src, left, right = re.findall(r"([A-Z0-9]{3})", node)
+    nodes[src] = (left, right)
+
+    if src[2] == "A":
+        current.append(src)
+
+lens = []
+for v in current:
+    node = v
+    idx = 0
+
+    t = 0
+    while node[2]!= "Z":
+        move = instrs[idx % len(instrs)]
+        idx += 1
+        node = nodes[node][0 if move == "L" else 1]
+        t += 1
+
+    lens.append(t)
+
+print(math.lcm(*lens))
