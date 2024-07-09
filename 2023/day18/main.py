@@ -2,9 +2,17 @@ import numpy as np
 from pathlib import Path
 
 
-def parse_instruction(line):
+def parse_instruction_part1(line):
     direction, distance, color = line.split()
     return direction, int(distance), color.strip("(#)")
+
+
+def parse_instruction_part2(line):
+    direction, distance, *_, color = line.split()
+    color = color.strip("(#)")
+    distance = int(color[:-1], 16)
+    direction = ["R", "D", "L", "U"][int(color[-1], 16)]
+    return direction, distance, color
 
 
 def get_vertices(instructions):
@@ -44,10 +52,15 @@ def calculate_lava_volume(instructions):
 def main():
     input_path = Path(__file__).parent / "input.txt"
     with open(input_path, "r") as f:
-        instructions = [parse_instruction(line.strip()) for line in f]
+        lines = [line.strip() for line in f]
 
-    lava_volume = calculate_lava_volume(instructions)
-    print(str(lava_volume))
+    instructions_part1 = [parse_instruction_part1(line) for line in lines]
+    lava_volume_part1 = calculate_lava_volume(instructions_part1)
+    print("Part 1:", lava_volume_part1)
+
+    instructions_part2 = [parse_instruction_part2(line) for line in lines]
+    lava_volume_part2 = calculate_lava_volume(instructions_part2)
+    print("Part 2:", lava_volume_part2)
 
 
 if __name__ == "__main__":
