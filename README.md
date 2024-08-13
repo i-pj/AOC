@@ -1,1 +1,1 @@
-Programming challenges on ![Advent of Code](https://adventofcode.com/)
+Programming challenges on [Advent of Code](https://adventofcode.com/)
