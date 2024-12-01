@@ -1,4 +1,5 @@
 import re
+import random
 
 def load_input(file_name):
     with open(file_name, 'r') as f:
@@ -22,5 +23,110 @@ def generate_molecules(replacements, medicine):
                 molecules.add(new_molecule)
     return len(molecules)
 
-replacements, medicine = load_input('input.txt')
-print(generate_molecules(replacements, medicine))
+def mutate(sq, replacements):
+    for pos in range(len(sq)):
+        for a, b_list in replacements.items():
+            if sq[pos:].startswith(a):
+                for b in b_list:
+                    yield sq[:pos] + b + sq[pos+len(a):]
+
+def search(mol, reps):
+    target = mol
+    mutations = 0
+    while target!= 'e':
+        tmp = target
+        for a, b_list in reps:
+            for b in b_list:
+                index = target.find(b)
+                if index >= 0:
+                    target = target[:index] + a + target[index + len(b):]
+                    mutations += 1
+        if tmp == target:
+            target = mol
+            mutations = 0
+            random.shuffle(reps)
+    return mutations
+
+def main():
+    replacements, medicine = load_input('input.txt')
+    print("Part 1:", len(set(mutate(medicine, replacements))))
+    print("Part 2:", search(medicine, list(replacements.items())))
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
